@@ -11,10 +11,11 @@ int Work(int b);
 
 int main()
 {
-	int game, a,b,x,y,i;
+	int game, a,b,x,y,i,ii;
 
-	printf("Please enter where you want to place your X");
+	printf("Please enter where you want to place your X (3x3 grid)");
 	scanf("%i", &i);
+    scanf("%i", &ii);
 	return 1;
 	game = Game(a);
 
