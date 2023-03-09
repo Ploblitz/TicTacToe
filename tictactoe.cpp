@@ -15,7 +15,6 @@ int main()
 
 	printf("Please enter where you want to place your X (3x3 grid)");
 	scanf("%i", &i);
-    scanf("%i", &ii);
 	return 1;
 	game = Game(a);
 
