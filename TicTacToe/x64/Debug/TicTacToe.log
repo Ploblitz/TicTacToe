@@ -1,0 +1,10 @@
+﻿  tictactoe.cpp
+C:\Users\eddie\OneDrive\Desktop\TicTacToe\tictactoe.cpp(20,2): error C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\eddie\OneDrive\Desktop\TicTacToe\tictactoe.cpp(17,17): warning C4101: 'b': unreferenced local variable
+C:\Users\eddie\OneDrive\Desktop\TicTacToe\tictactoe.cpp(17,25): warning C4101: 'ii': unreferenced local variable
+C:\Users\eddie\OneDrive\Desktop\TicTacToe\tictactoe.cpp(60,9): error C3861: 'CheckWin': identifier not found
+C:\Users\eddie\OneDrive\Desktop\TicTacToe\tictactoe.cpp(61,46): error C3861: 'CheckWin': identifier not found
+C:\Users\eddie\OneDrive\Desktop\TicTacToe\tictactoe.cpp(64,18): error C2660: 'PlayerGo': function does not take 0 arguments
+C:\Users\eddie\OneDrive\Desktop\TicTacToe\tictactoe.cpp(35,5): message : see declaration of 'PlayerGo'
+C:\Users\eddie\OneDrive\Desktop\TicTacToe\tictactoe.cpp(66,14): error C2660: 'PCGo': function does not take 0 arguments
+C:\Users\eddie\OneDrive\Desktop\TicTacToe\tictactoe.cpp(42,5): message : see declaration of 'PCGo'

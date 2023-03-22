@@ -6,7 +6,7 @@
 
 char board[3][3] = { {' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '} };
 
-
+int difficulty;
 int PlayerGo(int x);
 int PCGo(int y);
 int Game(int turn);
@@ -16,6 +16,7 @@ int main()
 {
 	int game, turn,b,x,y,i,ii;
 
+    printf("1 | 2 | 3\n---------\n4 | 5 | 6\n---------\n7 | 8 | 9\n");
 	printf("Please enter where you want to place your X (3x3 grid)");
 	scanf("%i", &i);
 	return 1;
@@ -34,17 +35,46 @@ int main()
 
 int PlayerGo(int x)
 {
-// TODO :EDLEMONADE EXPERT PLAYER 1 CODE
+
+    printf("Please enter a number that corresponds to position 1-9");
+    scanf("")
 
 	return 1;
 }
 
-int PCGo(int y)
+int PCGo()
 {
+    int row, col;
 
- // TODO : AI CODE FOR PLAYER 2 
+    if (difficulty == 1) {
+        // Easy difficulty: the computer chooses a random empty cell
+        do {
+            row = rand() % 3;
+            col = rand() % 3;
+        } while (board[row][col] != ' ');
+    }
+    else if (difficulty == 2) {
+        // Medium difficulty: the computer tries to win if possible, otherwise chooses a random empty cell
+        if (FindWinningMove('O', &row, &col)) {
+            // found a winning move, make it
+            board[row][col] = 'O';
+        }
+        else {
+            // no winning move, choose a random empty cell
+            do {
+                row = rand() % 3;
+                col = rand() % 3;
+            } while (board[row][col] != ' ');
+            board[row][col] = 'O';
+        }
+    }
+    else {
+        // Impossible difficulty: the computer plays optimally
+        FindBestMove('O', &row, &col);
+        board[row][col] = 'O';
+    }
 
-	return 2; 
+    return 2; // return player number of the computer
 }
 int Game(int turn)
 {
@@ -76,4 +106,4 @@ int Game(int turn)
 
 // X and O for unique player
 
-// random number for the PC
+// random number for the PC 
