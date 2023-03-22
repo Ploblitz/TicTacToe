@@ -14,24 +14,21 @@ int Work(int b);
 
 int main()
 {
-	int game, turn,b,x,y,i,ii;
+    int turn = 1;
+    int difficulty;
 
-	printf("Please enter where you want to place your X (3x3 grid)");
-	scanf("%i", &i);
-	return 1;
-	game = Game(turn);
+    printf("Welcome to Tic Tac Toe!\n");
+    printf("Choose the difficulty of the computer (1 for easy, 2 for hard): ");
+    scanf("%d", &difficulty);
 
-	if (game > 1)
-	{
-		return PlayerGo(x);    // need to fix up main to work with the new game function for board
-	}
-	else
-	{
-		return PCGo(y);
-	}
+    while (1) 
+    {
+        Game(turn, difficulty);
+        turn = (turn == 1) ? 2 : 1;
+    }
 
+    return 0;
 }
-
 int PlayerGo(int x)
 {
 // TODO :EDLEMONADE EXPERT PLAYER 1 CODE
@@ -39,12 +36,46 @@ int PlayerGo(int x)
 	return 1;
 }
 
-int PCGo(int y)
+int PCGo(int difficulty)
 {
+    int row, col;
 
- // TODO : AI CODE FOR PLAYER 2 
-
-	return 2; 
+    // If difficulty is 1 the computer's move is random
+    if (difficulty == 1) 
+    {
+        do 
+        {
+            row = rand() % 3;
+            col = rand() % 3;
+        } while (board[row][col] != ' ');
+    }
+    // If difficulty is 2 the computer tries to block the player's winning move, or makes a random move otherwise
+    else if (difficulty == 2) 
+    {
+        // Check if the player can win in the next move
+        for (row = 0; row < 3; row++) 
+        {
+            for (col = 0; col < 3; col++)
+            {
+                if (board[row][col] == ' ') 
+                {
+                    board[row][col] = 'X';
+                    if (CheckWin() == 1) 
+                    {
+                        board[row][col] = 'O';
+                        return 2;
+                    }
+                    board[row][col] = ' ';
+                }
+            }
+        }
+        // If the player cannot win in the next move, make a random move
+        do {
+            row = rand() % 3;
+            col = rand() % 3;
+        } while (board[row][col] != ' ');
+    }
+    return 2;
 }
 int Game(int turn)
 {
