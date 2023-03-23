@@ -3,101 +3,155 @@
 //Micheal Morris
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
-char board[3][3] = { {' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '} };
+char square[10] = { 'o', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+int choice, player, range;
 
-
-int PlayerGo(int x);
-int PCGo(int y);
-int Game(int turn);
-int Work(int b);
+int checkForWin();
+void Game();
+void markBoard(char mark);
+void PCGo();
 
 int main()
 {
-    int turn = 1;
-    int difficulty;
+    int gameStatus = 1;
+    char mark;
+    player = 1;
+    do {
+        Game();
+        player = (player % 2) ? 1 : 2;
 
-    printf("Welcome to Tic Tac Toe!\n");
-    printf("Choose the difficulty of the computer (1 for easy, 2 for hard): ");
-    scanf("%d", &difficulty);
+        if (player == 1)
+        {
+            printf("Player %d,enter a number: ", player);
+            scanf_s("%d", &choice);
+            mark = (player == 1) ? 'X' : 'O';
+            markBoard(mark);
+            gameStatus = checkForWin();
+            player++;
+       }
+        else
+        {
+            srand(time(NULL));
+            range = (9 - 1) + 1;
+            mark = (player == 1) ? 'X' : 'O';
+            markBoard(mark);
+            gameStatus = checkForWin();
+            player++;
 
-    while (1) 
-    {
-        Game(turn, difficulty);
-        turn = (turn == 1) ? 2 : 1;
+            return -1;
+        }
+            
+       
+    } while (gameStatus == -1);
+
+    if (gameStatus == 1)
+        printf("==>Player %d win \n\n", --player);
+    else {
+        printf("==>Game draw\n\n");
     }
-
     return 0;
 }
-int PlayerGo(int x)
-{
-// TODO :EDLEMONADE EXPERT PLAYER 1 CODE
 
-	return 1;
+int checkForWin()
+{
+    int returnValue = 0;
+
+    if (square[1] == square[2] && square[2] == square[3])
+    {
+        returnValue = 1;
+    }
+    else if (square[4] == square[5] && square[5] == square[6])
+        returnValue = 1;
+
+    else if (square[7] == square[8] && square[8] == square[9])
+        returnValue = 1;
+
+    else if (square[1] == square[4] && square[4] == square[7])
+        returnValue = 1;
+
+    else if (square[2] == square[5] && square[5] == square[8])
+        returnValue = 1;
+
+    else if (square[3] == square[6] && square[6] == square[9])
+        returnValue = 1;
+
+    else if (square[1] == square[5] && square[5] == square[9])
+        returnValue = 1;
+
+    else if (square[3] == square[5] && square[5] == square[7])
+        returnValue = 1;
+
+    else if (square[1] != '1' && square[2] != '2' && square[3] != '3' &&
+        square[4] != '4' && square[5] != '5' && square[6] != '6' && square[7]
+        != '7' && square[8] != '8' && square[9] != '9')
+        returnValue = 0;
+    else
+        returnValue = -1;
+
+    return returnValue;
 }
 
-int PCGo(int difficulty)
+void Game()
 {
-    int row, col;
+    system("cls");
 
-    // If difficulty is 1 the computer's move is random
-    if (difficulty == 1) 
-    {
-        do 
-        {
-            row = rand() % 3;
-            col = rand() % 3;
-        } while (board[row][col] != ' ');
-    }
-    // If difficulty is 2 the computer tries to block the player's winning move, or makes a random move otherwise
-    else if (difficulty == 2) 
-    {
-        // Check if the player can win in the next move
-        for (row = 0; row < 3; row++) 
-        {
-            for (col = 0; col < 3; col++)
-            {
-                if (board[row][col] == ' ') 
-                {
-                    board[row][col] = 'X';
-                    if (CheckWin() == 1) 
-                    {
-                        board[row][col] = 'O';
-                        return 2;
-                    }
-                    board[row][col] = ' ';
-                }
-            }
-        }
-        // If the player cannot win in the next move, make a random move
-        do {
-            row = rand() % 3;
-            col = rand() % 3;
-        } while (board[row][col] != ' ');
-    }
-    return 2;
+    printf("TicTacToe\n");
+
+    printf("Player (X)  -  PC (O)\n\n\n");
+
+    printf("     |     |     \n");
+    printf("  %c  |  %c  |  %c \n", square[1], square[2], square[3]);
+
+    printf("_____|_____|_____\n");
+    printf("     |     |     \n");
+
+    printf("  %c  |  %c  |  %c \n", square[4], square[5], square[6]);
+
+    printf("_____|_____|_____\n");
+    printf("     |     |     \n");
+
+    printf("  %c  |  %c  |  %c \n", square[7], square[8], square[9]);
+
+    printf("     |     |     \n\n");
 }
-int Game(int turn)
+
+void markBoard(char mark)
 {
-    // print the board
-    printf("\n");
-    printf(" %c | %c | %c \n", board[0][0], board[0][1], board[0][2]);
-    printf("---|---|---\n");
-    printf(" %c | %c | %c \n", board[1][0], board[1][1], board[1][2]);
-    printf("---|---|---\n");
-    printf(" %c | %c | %c \n", board[2][0], board[2][1], board[2][2]);
-    
-    // check if the game is over
-    if (CheckWin() != 0) {
-        printf("Game over! Player %d wins!", CheckWin());
-        return 0;
-    } else if (turn == 1) {
-        PlayerGo();
-    } else {
-        PCGo();
+    if (choice == 1 && square[1] == '1')
+        square[1] = mark;
+
+    else if (choice == 2 && square[2] == '2')
+        square[2] = mark;
+
+    else if (choice == 3 && square[3] == '3')
+        square[3] = mark;
+
+    else if (choice == 4 && square[4] == '4')
+        square[4] = mark;
+
+    else if (choice == 5 && square[5] == '5')
+        square[5] = mark;
+
+    else if (choice == 6 && square[6] == '6')
+        square[6] = mark;
+
+    else if (choice == 7 && square[7] == '7')
+        square[7] = mark;
+
+    else if (choice == 8 && square[8] == '8')
+        square[8] = mark;
+
+    else if (choice == 9 && square[9] == '9')
+        square[9] = mark;
+    else
+    {
+        printf("Invalid move ");
+
+        player--;
     }
-    
-    return 1;
 }
 //matrix for displaying Xs and Os
 
